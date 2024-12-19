@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+    
+  font-family: "Agu Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "MORF" 0;
+}
+
+
+/* Default CSS for large screens */
+.coworkingSpaceCard {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-height: 90vh;
+    overflow: auto;
+    padding: 20px;
+    min-width: 300px;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    color: black;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    /* For mobile screens */
+    .coworkingSpaceCard {
+      bottom: 0;
+      top: auto;
+      left: 0;
+      right: 0;
+      width: 100%;          /* Full width of the screen */
+      height: 50%;          /* 50% of the screen height */
+      margin: 0;            /* Remove margin */
+      border-radius: 10px 10px 0 0;
+      background: rgba(255, 255, 255, 0.9);
+      overflow: auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* For very small screens */
+    .coworkingSpaceCard {
+      width: 100%;           /* Full width */
+      height: 50%;           /* 50% of screen height */
+      bottom: 0;
+      margin: 0;
+      border-radius: 10px 10px 0 0;
+    }
+  }
+  
+  /* Option for centering the card on mobile instead of full width */
+  @media (max-width: 768px) {
+    .coworkingSpaceCard.centered {
+      left: 50%;                 /* Center horizontally */
+      transform: translateX(-50%); /* Centering technique */
+      width: 90%;                /* 90% of the width for a centered effect */
+    }
+  }
+
+  
+  @media (max-width: 768px) {
+    .leaflet-control-zoom {
+      bottom: -200px; /* Move zoom controls a bit down */
+      left: 50%;    /* Center horizontally */
+      transform: translateX(-50%); /* Keep it centered */
+    }
+  }
