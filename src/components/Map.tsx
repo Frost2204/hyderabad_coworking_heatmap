@@ -1,21 +1,36 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from 'leaflet';
-import React, { useState } from 'react';
-import { coworkingSpaces, CoworkingSpace } from '../data/coworkingSpaces';
-import CoworkingSpaceCard from './CoworkingSpaceCard';
-import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { Icon } from "leaflet";
+import React, { useState } from "react";
+import { coworkingSpaces, CoworkingSpace } from "../data/coworkingSpaces";
+import CoworkingSpaceCard from "./CoworkingSpaceCard";
+import "leaflet/dist/leaflet.css";
 
 const customIcon = new Icon({
-  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+  iconUrl:
+    "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
-  popupAnchor: [1, -34]
+  popupAnchor: [1, -34],
 });
+
+// Component to adjust map view with smooth animation
+const MapViewUpdater = ({ position }: { position: [number, number] }) => {
+  const map = useMap();
+  
+  // Smoothly fly to the marker with a smooth zoom transition
+  map.flyTo(position, map.getZoom(), {
+    duration: 1.5, // Duration of the animation
+    easeLinearity: 0.25, // Smoother easing of the movement (lower values make it slower)
+  });
+
+  return null;
+};
 
 export default function Map() {
   const [activeSpace, setActiveSpace] = useState<CoworkingSpace | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filteredSpaces, setFilteredSpaces] = useState<CoworkingSpace[]>(coworkingSpaces);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredSpaces, setFilteredSpaces] =
+    useState<CoworkingSpace[]>(coworkingSpaces);
 
   const handleMarkerClick = (space: CoworkingSpace) => {
     setActiveSpace(space);
@@ -25,48 +40,51 @@ export default function Map() {
     const search = event.target.value.toLowerCase();
     setSearchTerm(search);
 
-    const filtered = coworkingSpaces.filter(space =>
-      space.name.toLowerCase().includes(search)
+    const filtered = coworkingSpaces.filter((space) =>
+      Object.values(space)
+        .join(" ")
+        .toLowerCase()
+        .includes(search)
     );
     setFilteredSpaces(filtered);
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       {/* Search Bar at the top */}
       <input
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
-        placeholder="Search for a coworking space..."
+        placeholder="Search here..."
         style={{
-          position: 'absolute',
-          top: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          padding: '10px',
-          fontSize: '16px',
+          position: "absolute",
+          top: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          padding: "10px",
+          fontSize: "16px",
           zIndex: 9999,
-          borderRadius: '5px',
-          width: '80%',
-          maxWidth: '400px',
-          backgroundColor: 'rgba(255, 255, 255, 0.8)',
-          border: '1px solid rgba(255, 255, 255, 0.4)',
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+          borderRadius: "5px",
+          width: "80%",
+          maxWidth: "400px",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          border: "1px solid rgba(255, 255, 255, 0.4)",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       />
-      
+
       {/* Map */}
       <MapContainer
         center={[17.385, 78.4867]}
         zoom={12}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; OpenStreetMap contributors'
+          attribution="&copy; OpenStreetMap contributors"
         />
-        
+
         {filteredSpaces.map((space, index) => (
           <Marker
             key={index}
@@ -78,18 +96,32 @@ export default function Map() {
           >
             <Popup>
               <div>
-                <b>Space Name:</b> {space.name}<br />
-                <b>Location:</b> {space.location}<br />
-                <b>Category:</b> {space.category}<br />
+                <b>Space Name:</b> {space.name}
+                <br />
+                <b>Location:</b> {space.location}
+                <br />
+                <b>Category:</b> {space.category}
+                <br />
                 <b>Price (INR):</b> {space.price}
               </div>
             </Popup>
           </Marker>
         ))}
+
+        {/* Update map view when a marker is clicked with smooth animation */}
+        {activeSpace && <MapViewUpdater position={activeSpace.coordinates} />}
       </MapContainer>
-      
+
       {/* Display the coworking space card */}
-      {activeSpace && <CoworkingSpaceCard activeSpace={activeSpace} />}
+      {activeSpace && (
+        <CoworkingSpaceCard
+          activeSpace={activeSpace}
+          onClose={() => {
+            console.log("Close button clicked"); // Debug log
+            setActiveSpace(null); // Reset activeSpace to close the card
+          }}
+        />
+      )}
     </div>
   );
 }
