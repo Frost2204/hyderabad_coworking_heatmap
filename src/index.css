@@ -11,6 +11,7 @@ body{
   font-style: normal;
   font-variation-settings:
     "MORF" 0;
+    user-select: none;
 }
 
 
