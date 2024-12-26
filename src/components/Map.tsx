@@ -26,8 +26,16 @@ const MapViewUpdater = ({ position }: { position: [number, number] }) => {
   return null;
 };
 
+// Function to determine pin color based on the number of coworking spaces
+const getPinColor = (numSpaces: number) => {
+  if (numSpaces >= 10) return "red";
+  if (numSpaces >= 5) return "orange";
+  if (numSpaces >= 2) return "darkblue";
+  return "blue"; // Default color
+};
+
 export default function Map() {
-  const [activeSpaces, setActiveSpaces] = useState<CoworkingSpace[]>([]);
+  const [activeSpaces, setActiveSpaces] = useState<CoworkingSpace[]>([]); // Tracks spaces for cards
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const mapRef = useRef<any>(null); // Ref to access map instance
@@ -39,17 +47,20 @@ export default function Map() {
     );
   }, [searchTerm]);
 
+  // Update the active spaces when a marker is clicked
   const handleMarkerClick = (coordinates: [number, number]) => {
-    const spacesAtSameLocation = coworkingSpaces.filter(
+    // Filter spaces that match the coordinates
+    const spacesAtSameLocation = filteredSpaces.filter(
       (space) =>
         space.coordinates[0] === coordinates[0] &&
         space.coordinates[1] === coordinates[1]
     );
-    setActiveSpaces(spacesAtSameLocation);
+    setActiveSpaces(spacesAtSameLocation); // Only set spaces that match the filter
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+    setActiveSpaces([]); // Clear active spaces on search change (important for updating cards)
   };
 
   const handleClearSearch = () => {
@@ -110,19 +121,18 @@ export default function Map() {
           const spacesAtLocation = groupedSpaces[key]; // Get all spaces at this location
           const space = spacesAtLocation[0]; // Take the first space as representative for the location
           const numSpaces = spacesAtLocation.length; // Number of spaces at this location
+          const pinColor = getPinColor(numSpaces); // Determine pin color based on number of spaces
 
           return (
             <Marker
               key={key}
               position={space.coordinates}
-              icon={
-                new DivIcon({
-                  className: "custom-div-icon",
-                  html: `<div style="background-color: #3388ff; color: white; padding: 5px; border-radius: 50%; text-align: center; font-size: 12px; font-weight: bold; width: 25px; height: 25px;">${numSpaces}</div>`,
-                  iconSize: [30, 30],
-                  iconAnchor: [15, 15],
-                })
-              }
+              icon={new DivIcon({
+                className: "custom-div-icon",
+                html: `<div style="background-color: ${pinColor}; color: white; padding: 5px; border-radius: 50%; text-align: center; font-size: 12px; font-weight: bold; width: 25px; height: 25px;">${numSpaces}</div>`,
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+              })}
               eventHandlers={{
                 click: () => handleMarkerClick(space.coordinates),
               }}
@@ -137,6 +147,7 @@ export default function Map() {
         {activeSpaces.length > 0 && <MapViewUpdater position={activeSpaces[0].coordinates} />}
       </MapContainer>
 
+      {/* Only show activeSpaces that are filtered and after clicking on a marker */}
       {activeSpaces.length > 0 && (
         <CoworkingSpaceCard activeSpaces={activeSpaces} onClose={() => setActiveSpaces([])} />
       )}
