@@ -5,21 +5,14 @@ import {
   Tooltip,
   useMap,
 } from "react-leaflet";
-import { Icon, DivIcon } from "leaflet";
-import React, { useState, useMemo } from "react";
+import { DivIcon, LatLngBounds } from "leaflet";
+import React, { useState, useMemo, useRef } from "react";
 import { coworkingSpaces, CoworkingSpace } from "../data/coworkingSpaces";
 import CoworkingSpaceCard from "./CoworkingSpaceCard";
 import "leaflet/dist/leaflet.css";
 import "swiper/swiper-bundle.css"; // Swiper styles
 import Swiper from "swiper";
-
-const customIcon = new Icon({
-  iconUrl:
-    "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
+import SearchInput from "./SearchInput"; // Import SearchInput
 
 // Component to adjust map view with smooth animation
 const MapViewUpdater = ({ position }: { position: [number, number] }) => {
@@ -36,6 +29,8 @@ const MapViewUpdater = ({ position }: { position: [number, number] }) => {
 export default function Map() {
   const [activeSpaces, setActiveSpaces] = useState<CoworkingSpace[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const mapRef = useRef<any>(null); // Ref to access map instance
 
   // Memoize the filtered spaces based on search term to optimize performance
   const filteredSpaces = useMemo(() => {
@@ -57,6 +52,25 @@ export default function Map() {
     setSearchTerm(event.target.value);
   };
 
+  const handleClearSearch = () => {
+    setSearchTerm(""); // Clear search term
+    setActiveSpaces([]); // Reset active spaces
+  };
+
+  const handleSearchSubmit = () => {
+    if (filteredSpaces.length === 0) return;
+
+    // Compute bounds for the filtered spaces
+    const bounds = new LatLngBounds(
+      filteredSpaces.map((space) => space.coordinates)
+    );
+
+    const map = mapRef.current; // Access the map instance via ref
+    if (map) {
+      map.fitBounds(bounds, { padding: [50, 50] }); // Adjust padding as needed
+    }
+  };
+
   // Group spaces by unique location to prevent repeated tooltips
   const groupedSpaces = useMemo(() => {
     const grouped: { [key: string]: CoworkingSpace[] } = {};
@@ -72,32 +86,20 @@ export default function Map() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        placeholder="Search here..."
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          padding: "10px",
-          fontSize: "16px",
-          zIndex: 9999,
-          borderRadius: "5px",
-          width: "80%",
-          maxWidth: "400px",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
-          border: "1px solid rgba(255, 255, 255, 0.4)",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-        }}
+      {/* Search Input */}
+      <SearchInput
+        searchTerm={searchTerm}
+        onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit} // Pass the submit handler
+        onClear={handleClearSearch}
       />
 
+      {/* Map */}
       <MapContainer
-        center={[17.385, 78.4867]}
+        center={[17.45, 78.47]} 
         zoom={12}
         style={{ height: "100%", width: "100%" }}
+        ref={mapRef} // Pass the map ref
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -125,7 +127,6 @@ export default function Map() {
                 click: () => handleMarkerClick(space.coordinates),
               }}
             >
-              {/* Tooltip for displaying location name only once per location */}
               <Tooltip direction="top" offset={[0, -20]} permanent>
                 {space.location}
               </Tooltip>
@@ -133,16 +134,11 @@ export default function Map() {
           );
         })}
 
-        {activeSpaces.length > 0 && (
-          <MapViewUpdater position={activeSpaces[0].coordinates} />
-        )}
+        {activeSpaces.length > 0 && <MapViewUpdater position={activeSpaces[0].coordinates} />}
       </MapContainer>
 
       {activeSpaces.length > 0 && (
-        <CoworkingSpaceCard
-          activeSpaces={activeSpaces}
-          onClose={() => setActiveSpaces([])}
-        />
+        <CoworkingSpaceCard activeSpaces={activeSpaces} onClose={() => setActiveSpaces([])} />
       )}
     </div>
   );
