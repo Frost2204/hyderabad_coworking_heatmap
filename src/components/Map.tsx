@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { coworkingSpaces, CoworkingSpace } from "../data/coworkingSpaces";
 import CoworkingSpaceCard from "./CoworkingSpaceCard";
 import "leaflet/dist/leaflet.css";
+import "swiper/swiper-bundle.css"; // Swiper styles
+import Swiper from "swiper";
 
 const customIcon = new Icon({
   iconUrl:
@@ -16,24 +18,28 @@ const customIcon = new Icon({
 // Component to adjust map view with smooth animation
 const MapViewUpdater = ({ position }: { position: [number, number] }) => {
   const map = useMap();
-  
-  // Smoothly fly to the marker with a smooth zoom transition
+
   map.flyTo(position, map.getZoom(), {
-    duration: 1.5, // Duration of the animation
-    easeLinearity: 0.25, // Smoother easing of the movement (lower values make it slower)
+    duration: 1.5,
+    easeLinearity: 0.25,
   });
 
   return null;
 };
 
 export default function Map() {
-  const [activeSpace, setActiveSpace] = useState<CoworkingSpace | null>(null);
+  const [activeSpaces, setActiveSpaces] = useState<CoworkingSpace[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredSpaces, setFilteredSpaces] =
     useState<CoworkingSpace[]>(coworkingSpaces);
 
-  const handleMarkerClick = (space: CoworkingSpace) => {
-    setActiveSpace(space);
+  const handleMarkerClick = (coordinates: [number, number]) => {
+    const spacesAtSameLocation = coworkingSpaces.filter(
+      (space) =>
+        space.coordinates[0] === coordinates[0] &&
+        space.coordinates[1] === coordinates[1]
+    );
+    setActiveSpaces(spacesAtSameLocation);
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +57,6 @@ export default function Map() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      {/* Search Bar at the top */}
       <input
         type="text"
         value={searchTerm}
@@ -74,7 +79,6 @@ export default function Map() {
         }}
       />
 
-      {/* Map */}
       <MapContainer
         center={[17.385, 78.4867]}
         zoom={12}
@@ -91,35 +95,22 @@ export default function Map() {
             position={space.coordinates}
             icon={customIcon}
             eventHandlers={{
-              click: () => handleMarkerClick(space),
+              click: () => handleMarkerClick(space.coordinates),
             }}
           >
-            <Popup>
-              <div>
-                <b>Space Name:</b> {space.name}
-                <br />
-                <b>Location:</b> {space.location}
-                <br />
-                <b>Category:</b> {space.category}
-                <br />
-                <b>Price (INR):</b> {space.price}
-              </div>
-            </Popup>
+            <Popup>{space.name}</Popup>
           </Marker>
         ))}
 
-        {/* Update map view when a marker is clicked with smooth animation */}
-        {activeSpace && <MapViewUpdater position={activeSpace.coordinates} />}
+        {activeSpaces.length > 0 && (
+          <MapViewUpdater position={activeSpaces[0].coordinates} />
+        )}
       </MapContainer>
 
-      {/* Display the coworking space card */}
-      {activeSpace && (
+      {activeSpaces.length > 0 && (
         <CoworkingSpaceCard
-          activeSpace={activeSpace}
-          onClose={() => {
-            console.log("Close button clicked"); // Debug log
-            setActiveSpace(null); // Reset activeSpace to close the card
-          }}
+          activeSpaces={activeSpaces}
+          onClose={() => setActiveSpaces([])}
         />
       )}
     </div>

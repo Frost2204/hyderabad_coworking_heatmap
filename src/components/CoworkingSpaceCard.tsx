@@ -1,67 +1,88 @@
 import React from "react";
 import { CoworkingSpace } from "../data/coworkingSpaces";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 interface CoworkingSpaceCardProps {
-  activeSpace: CoworkingSpace;
-  onClose: () => void; // Function to close the popup
+  activeSpaces: CoworkingSpace[];
+  onClose: () => void;
 }
 
 const CoworkingSpaceCard: React.FC<CoworkingSpaceCardProps> = ({
-  activeSpace,
+  activeSpaces,
   onClose,
 }) => {
   const cardStyle: React.CSSProperties = {
-    background: "rgba(255, 255, 255, 0.2)", // Transparent background
-    backdropFilter: "blur(10px)", // Blur effect
-    borderRadius: "15px", // Rounded corners
-    padding: "20px", // Padding
-    minWidth: "300px", // Minimum width
-    maxWidth: "400px", // Maximum width
-    color: "black", // Text color
-    textAlign: "left", // Text alignment
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Shadow effect
-    pointerEvents: "auto", // Ensure the card can be interacted with
-    position: "fixed", // Fix the card position
-    zIndex: 9999, // High Z-index to make sure it's on top
-    maxHeight: "90vh", // Restrict max height
-    overflow: "auto", // Scrollable content if it exceeds height
-    width: "80%", // Set the width
+    background: "rgba(255, 255, 255, 0.8)",
+    borderRadius: "15px",
+    padding: "20px",
+    maxWidth: "400px",
+    color: "black",
+    textAlign: "left",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    position: "fixed",
+    bottom: "20px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 9999,
+    overflow: "hidden",
+    width: "90%",
+    maxHeight: "50vh",
   };
 
   const closeButtonStyle: React.CSSProperties = {
-    position: "absolute", // Absolute positioning
-    top: "10px", // Position near the top-right
+    position: "absolute",
+    top: "10px",
     right: "10px",
-    background: "red", // Red background
-    color: "white", // White text color
-    border: "none", // No border
-    borderRadius: "50%", // Round button
-    width: "30px", // Fixed size
+    background: "red",
+    color: "white",
+    border: "none",
+    borderRadius: "50%",
+    width: "30px",
     height: "30px",
-    display: "flex", // Center the "X"
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "18px", // Font size
-    cursor: "pointer", // Pointer cursor
+    fontSize: "18px",
+    cursor: "pointer",
+    zIndex: 10000, // Higher than the card's z-index
+  };
+
+  const slideStyle: React.CSSProperties = {
+    background: "linear-gradient(135deg, #f5f5f5, #e0e0e0)", // Subtle gradient for background
+    borderRadius: "10px", // Rounded corners for the slide
+    padding: "20px", // Padding inside the slide
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Light shadow for depth
+    margin: "10px", // Space between slides
   };
 
   return (
-    <div style={cardStyle} className="coworkingSpaceCard centered">
+    <div style={cardStyle}>
       <button style={closeButtonStyle} onClick={onClose}>
         ✖
       </button>
-      <h3 style={{ fontWeight: "bold", fontSize: "24px", color: "black" }}>
-        {activeSpace.name}
-      </h3>
-      <p>
-        <strong>Location:</strong> {activeSpace.location}
-      </p>
-      <p>
-        <strong>Category:</strong> {activeSpace.category}
-      </p>
-      <p>
-        <strong>Price (INR):</strong> {activeSpace.price}
-      </p>
+
+      <Swiper spaceBetween={10} slidesPerView={1}>
+        {activeSpaces.map((space, index) => (
+          <SwiperSlide key={index}>
+            <div style={slideStyle}>
+              <h3>{space.name}</h3>
+              <p>
+                <strong>Location:</strong> {space.location}
+              </p>
+              <p>
+                <strong>Category:</strong> {space.category}
+              </p>
+              <p>
+                <strong>Price (INR):</strong> {space.price}
+              </p>
+              <p>
+                <strong>Area:</strong> {space.area}
+              </p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

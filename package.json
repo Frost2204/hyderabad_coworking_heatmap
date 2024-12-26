@@ -3,19 +3,22 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-"scripts": {
-  "dev": "vite",       
-  "build": "vite build", 
-  "lint": "eslint .",
-  "preview": "vite preview",
-  "start": "vite"
-},
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "start": "vite"
+  },
   "dependencies": {
     "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-leaflet": "^4.2.1"
+    "react-leaflet": "^4.2.1",
+    "react-leaflet-markercluster": "^4.2.1",
+    "swiper": "^11.1.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
