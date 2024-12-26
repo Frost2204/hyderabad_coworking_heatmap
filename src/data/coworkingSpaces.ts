@@ -14,7 +14,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "6000",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "91 Springboard - Hitech Madhapur",
@@ -22,7 +22,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "5000",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Aham Co-Work Zones",
@@ -54,7 +54,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "AntSpaces",
@@ -94,7 +94,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "7500",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Awfis - Lorven Tiara Kondapur",
@@ -102,7 +102,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "7500",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Awfis - Oyster Complex Begumpet",
@@ -118,7 +118,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Awfis - Rajapushpa Summit",
@@ -134,7 +134,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "7500",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Awfis - Taj Deccan",
@@ -158,7 +158,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "5500",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Cokarma",
@@ -182,7 +182,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "9000",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Cokarma - Gandipet Chowrasta",
@@ -214,7 +214,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "7000",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Cokarma - veer chambers",
@@ -238,7 +238,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "5500",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Crazy cowork",
@@ -254,7 +254,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "7500",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "DBS Business Center",
@@ -262,7 +262,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "8500",
     coordinates: [17.4399, 78.4983],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "D'Desks Co-working Space",
@@ -302,7 +302,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "5500",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Geek space",
@@ -326,7 +326,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "5100",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Gshilp",
@@ -334,7 +334,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "6500",
     coordinates: [17.4399, 78.4983],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Hatch station coworking - 1",
@@ -342,7 +342,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "8700",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Head Office Coworking",
@@ -350,7 +350,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "13500",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Hive Space",
@@ -358,7 +358,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "iKeva",
@@ -374,7 +374,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "13500",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Innovation Hub, Business Center",
@@ -382,7 +382,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "--",
     coordinates: [17.4399, 78.4983],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Innovivi Centre Of Excellence",
@@ -406,7 +406,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "7000",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "iSprout pro found",
@@ -414,7 +414,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "4500",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Jaaga space",
@@ -430,7 +430,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "5900",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Lorven smart spaces",
@@ -438,7 +438,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "6000",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "MB (My business) center",
@@ -446,7 +446,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "6250",
     coordinates: [17.4399, 78.4983],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "MyBranch",
@@ -486,7 +486,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "--",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "OYO WorkFlo Hitex Bizness Square",
@@ -494,7 +494,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "12000",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Plug And Play Offices",
@@ -502,7 +502,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "60000",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Red brick",
@@ -510,7 +510,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "45000",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Regus",
@@ -518,7 +518,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "8500",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Regus Kothari Centrum",
@@ -526,7 +526,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "35000",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Regus SLN Terminus",
@@ -534,7 +534,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "7000",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Rent a desk",
@@ -566,7 +566,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "6500",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Smartpace",
@@ -574,7 +574,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "9000",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Spacion Business Centre",
@@ -606,7 +606,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "8000-9000",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Space4u",
@@ -622,7 +622,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "10000-13000",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "TECHNALS Co-Working",
@@ -630,7 +630,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "Teetos Business Centre",
@@ -646,7 +646,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "--",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "The Clique Space",
@@ -654,7 +654,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "--",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "The CorpWork",
@@ -662,7 +662,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "The Executive Centre - Level 1",
@@ -678,7 +678,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Uniton IHub",
@@ -686,7 +686,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "V-Work hybrid Spaces",
@@ -694,7 +694,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4504, 78.3808],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Vatika",
@@ -702,7 +702,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "VUnite Co-working Space",
@@ -718,7 +718,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Budgeted(6k or less)",
     price: "--",
     coordinates: [17.4435, 78.4627],
-    area: "Hyderbad - West"
+    area: "hyderabad - West"
   },
   {
     name: "WeWork Krishe Emerald",
@@ -726,7 +726,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.4721, 78.3578],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "WeWork Raheja Mindspace",
@@ -734,7 +734,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Standard(6k-12k)",
     price: "--",
     coordinates: [17.448294, 78.391487],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "WeWork Rajapushpa Summit",
@@ -750,7 +750,7 @@ export const coworkingSpaces: CoworkingSpace[] = [
     category: "Premium(12K or More)",
     price: "--",
     coordinates: [17.44008, 78.348916],
-    area: "Hyderbard- West"
+    area: "hyderabad- West"
   },
   {
     name: "Workafella",
