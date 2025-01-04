@@ -1,7 +1,9 @@
 import React from "react";
 import { CoworkingSpace } from "../data/coworkingSpaces";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 
 interface CoworkingSpaceCardProps {
   activeSpaces: CoworkingSpace[];
@@ -15,7 +17,7 @@ const CoworkingSpaceCard: React.FC<CoworkingSpaceCardProps> = ({
   const cardStyle: React.CSSProperties = {
     background: "rgba(255, 255, 255, 0.8)",
     borderRadius: "15px",
-    padding: "20px",
+    padding: "10px 50px",  // Increased horizontal padding to 80px
     maxWidth: "400px",
     color: "black",
     textAlign: "left",
@@ -56,13 +58,53 @@ const CoworkingSpaceCard: React.FC<CoworkingSpaceCardProps> = ({
     margin: "10px", // Space between slides
   };
 
+  const navigationButtonStyle: React.CSSProperties = {
+    position: "absolute",
+    top: "60%",
+    transform: "translateY(-50%)",
+    zIndex: 1000,
+    background: "rgba(255, 255, 255, 0.8)", // Light background color
+    color: "#555", // Light gray color for the arrow
+    border: "1px solid #ddd", // Subtle border
+    borderRadius: "50%",
+    width: "40px",
+    height: "40px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Soft shadow for depth
+  };
+
   return (
     <div style={cardStyle}>
       <button style={closeButtonStyle} onClick={onClose}>
         ✖
       </button>
 
-      <Swiper spaceBetween={10} slidesPerView={1}>
+      {/* Navigation Buttons */}
+      <button
+        style={{ ...navigationButtonStyle, left: "10px" }}
+        className="swiper-button-prev"
+      >
+        &#9664;
+      </button>
+      <button
+        style={{ ...navigationButtonStyle, right: "10px" }}
+        className="swiper-button-next"
+      >
+        &#9654;
+      </button>
+
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={1}
+        modules={[Navigation]}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
+      >
         {activeSpaces.map((space, index) => (
           <SwiperSlide key={index}>
             <div style={slideStyle}>
