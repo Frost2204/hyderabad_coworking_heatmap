@@ -17,7 +17,7 @@ const CoworkingSpaceCard: React.FC<CoworkingSpaceCardProps> = ({
   const cardStyle: React.CSSProperties = {
     background: "rgba(255, 255, 255, 0.8)",
     borderRadius: "15px",
-    padding: "10px 50px",  // Increased horizontal padding to 80px
+    padding: "10px 50px",
     maxWidth: "400px",
     color: "black",
     textAlign: "left",
@@ -47,33 +47,22 @@ const CoworkingSpaceCard: React.FC<CoworkingSpaceCardProps> = ({
     justifyContent: "center",
     fontSize: "18px",
     cursor: "pointer",
-    zIndex: 10000, // Higher than the card's z-index
+    zIndex: 10000,
   };
 
   const slideStyle: React.CSSProperties = {
-    background: "linear-gradient(135deg, #f5f5f5, #e0e0e0)", // Subtle gradient for background
-    borderRadius: "10px", // Rounded corners for the slide
-    padding: "20px", // Padding inside the slide
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Light shadow for depth
-    margin: "10px", // Space between slides
+    background: "linear-gradient(135deg, #f5f5f5, #e0e0e0)",
+    borderRadius: "10px",
+    padding: "20px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    margin: "10px",
   };
 
-  const navigationButtonStyle: React.CSSProperties = {
-    position: "absolute",
-    top: "60%",
-    transform: "translateY(-50%)",
-    zIndex: 1000,
-    background: "rgba(255, 255, 255, 0.8)", // Light background color
-    color: "#555", // Light gray color for the arrow
-    border: "1px solid #ddd", // Subtle border
-    borderRadius: "50%",
-    width: "40px",
-    height: "40px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Soft shadow for depth
+  const phoneStyle: React.CSSProperties = {
+    fontWeight: "bold",
+    color: "#007bff",
+    textDecoration: "none",
+    marginRight: "10px", // Space between numbers
   };
 
   return (
@@ -82,29 +71,7 @@ const CoworkingSpaceCard: React.FC<CoworkingSpaceCardProps> = ({
         ✖
       </button>
 
-      {/* Navigation Buttons */}
-      <button
-        style={{ ...navigationButtonStyle, left: "10px" }}
-        className="swiper-button-prev"
-      >
-        &#9664;
-      </button>
-      <button
-        style={{ ...navigationButtonStyle, right: "10px" }}
-        className="swiper-button-next"
-      >
-        &#9654;
-      </button>
-
-      <Swiper
-        spaceBetween={10}
-        slidesPerView={1}
-        modules={[Navigation]}
-        navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        }}
-      >
+      <Swiper spaceBetween={10} slidesPerView={1} modules={[Navigation]} navigation>
         {activeSpaces.map((space, index) => (
           <SwiperSlide key={index}>
             <div style={slideStyle}>
@@ -121,6 +88,22 @@ const CoworkingSpaceCard: React.FC<CoworkingSpaceCardProps> = ({
               <p>
                 <strong>Area:</strong> {space.area}
               </p>
+              <p>
+                <strong>Coordinates:</strong> ({space.coordinates[0]},{" "}
+                {space.coordinates[1]})
+              </p>
+              {space.poc && (
+                <p>
+                  <strong>Point of Contact:</strong> {space.poc.name} -{" "}
+                  {space.poc.contact
+                    .split("/") // Split the contact string by "/"
+                    .map((phone, idx) => (
+                      <a key={idx} href={`tel:${phone.trim()}`} style={phoneStyle}>
+                        {phone.trim()}
+                      </a>
+                    ))}
+                </p>
+              )}
             </div>
           </SwiperSlide>
         ))}

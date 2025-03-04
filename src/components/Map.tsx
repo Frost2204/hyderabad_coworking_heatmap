@@ -6,83 +6,63 @@ import {
   useMap,
 } from "react-leaflet";
 import { DivIcon, LatLngBounds } from "leaflet";
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { coworkingSpaces, CoworkingSpace } from "../data/coworkingSpaces";
 import CoworkingSpaceCard from "./CoworkingSpaceCard";
 import "leaflet/dist/leaflet.css";
-import "swiper/swiper-bundle.css"; // Swiper styles
-import Swiper from "swiper";
-import SearchInput from "./SearchInput"; // Import SearchInput
+import "swiper/swiper-bundle.css";
+import SearchInput from "./SearchInput";
+import Draggable from "react-draggable";
 
-// Component to adjust map view with smooth animation
-const MapViewUpdater = ({ position }: { position: [number, number] }) => {
+const MapViewUpdater = ({ bounds }: { bounds: LatLngBounds }) => {
   const map = useMap();
-
-  map.flyTo(position, map.getZoom(), {
-    duration: 1.5,
-    easeLinearity: 0.25,
-  });
-
+  useEffect(() => {
+    if (bounds.isValid()) {
+      map.fitBounds(bounds, { padding: [50, 50], duration: 1.5 });
+    }
+  }, [bounds, map]);
   return null;
 };
 
-// Function to determine pin color based on the number of coworking spaces
 const getPinColor = (numSpaces: number) => {
   if (numSpaces >= 10) return "red";
   if (numSpaces >= 5) return "orange";
   if (numSpaces >= 2) return "darkblue";
-  return "blue"; // Default color
+  return "blue";
 };
 
 export default function Map() {
-  const [activeSpaces, setActiveSpaces] = useState<CoworkingSpace[]>([]); // Tracks spaces for cards
+  const [activeSpaces, setActiveSpaces] = useState<CoworkingSpace[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const mapRef = useRef<any>(null);
 
-  const mapRef = useRef<any>(null); // Ref to access map instance
-
-  // Memoize the filtered spaces based on search term to optimize performance
   const filteredSpaces = useMemo(() => {
     return coworkingSpaces.filter((space) =>
       Object.values(space).join(" ").toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm]);
 
-  // Update the active spaces when a marker is clicked
-  const handleMarkerClick = (coordinates: [number, number]) => {
-    // Filter spaces that match the coordinates
-    const spacesAtSameLocation = filteredSpaces.filter(
-      (space) =>
-        space.coordinates[0] === coordinates[0] &&
-        space.coordinates[1] === coordinates[1]
-    );
-    setActiveSpaces(spacesAtSameLocation); // Only set spaces that match the filter
-  };
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setActiveSpaces([]); // Clear active spaces on search change (important for updating cards)
-  };
-
-  const handleClearSearch = () => {
-    setSearchTerm(""); // Clear search term
-    setActiveSpaces([]); // Reset active spaces
+    setActiveSpaces([]);
   };
 
   const handleSearchSubmit = () => {
     if (filteredSpaces.length === 0) return;
 
-    // Compute bounds for the filtered spaces
     const bounds = new LatLngBounds(
       filteredSpaces.map((space) => space.coordinates)
     );
 
-    const map = mapRef.current; // Access the map instance via ref
-    if (map) {
-      map.fitBounds(bounds, { padding: [50, 50] }); // Adjust padding as needed
+    if (mapRef.current) {
+      mapRef.current.fitBounds(bounds, { padding: [50, 50] });
     }
   };
 
-  // Group spaces by unique location to prevent repeated tooltips
+  const handleClearSearch = () => {
+    setSearchTerm("");
+  };
+
   const groupedSpaces = useMemo(() => {
     const grouped: { [key: string]: CoworkingSpace[] } = {};
     filteredSpaces.forEach((space) => {
@@ -97,20 +77,36 @@ export default function Map() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      {/* Search Input */}
-      <SearchInput
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
-        onSearchSubmit={handleSearchSubmit} // Pass the submit handler
-        onClear={handleClearSearch}
+      <SearchInput 
+        searchTerm={searchTerm} 
+        onSearchChange={handleSearchChange} 
+        onSearchSubmit={handleSearchSubmit} 
+        onClear={handleClearSearch} 
       />
 
-      {/* Map */}
+      <Draggable bounds="parent">
+        <div
+          style={{
+            position: "absolute",
+            top: 100,
+            right: 10,
+            background: "white",
+            padding: "10px 15px",
+            borderRadius: "8px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+            cursor: "grab",
+            zIndex: 1000,
+          }}
+        >
+          <strong>Total Results: {filteredSpaces.length}</strong>
+        </div>
+      </Draggable>
+
       <MapContainer
         center={[17.45, 78.47]} 
         zoom={12}
         style={{ height: "100%", width: "100%" }}
-        ref={mapRef} // Pass the map ref
+        ref={mapRef}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -118,10 +114,10 @@ export default function Map() {
         />
 
         {Object.keys(groupedSpaces).map((key) => {
-          const spacesAtLocation = groupedSpaces[key]; // Get all spaces at this location
-          const space = spacesAtLocation[0]; // Take the first space as representative for the location
-          const numSpaces = spacesAtLocation.length; // Number of spaces at this location
-          const pinColor = getPinColor(numSpaces); // Determine pin color based on number of spaces
+          const spacesAtLocation = groupedSpaces[key];
+          const space = spacesAtLocation[0];
+          const numSpaces = spacesAtLocation.length;
+          const pinColor = getPinColor(numSpaces);
 
           return (
             <Marker
@@ -134,7 +130,7 @@ export default function Map() {
                 iconAnchor: [15, 15],
               })}
               eventHandlers={{
-                click: () => handleMarkerClick(space.coordinates),
+                click: () => setActiveSpaces(spacesAtLocation),
               }}
             >
               <Tooltip direction="top" offset={[0, -20]} permanent>
@@ -144,10 +140,11 @@ export default function Map() {
           );
         })}
 
-        {activeSpaces.length > 0 && <MapViewUpdater position={activeSpaces[0].coordinates} />}
+        {filteredSpaces.length > 0 && (
+          <MapViewUpdater bounds={new LatLngBounds(filteredSpaces.map((space) => space.coordinates))} />
+        )}
       </MapContainer>
 
-      {/* Only show activeSpaces that are filtered and after clicking on a marker */}
       {activeSpaces.length > 0 && (
         <CoworkingSpaceCard activeSpaces={activeSpaces} onClose={() => setActiveSpaces([])} />
       )}
